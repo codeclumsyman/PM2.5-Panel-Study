@@ -8,17 +8,17 @@ library(ggsignif)
 library(dplyr)
 
 ## Get the name of the function indicator
-data_all<-read.csv("Paired_scatterplot.csv",header = FALSE)
+data_all<-read.csv("paired_scatterplot.csv",header = FALSE)
 head<-data_all[1,]
 ## Manually enter the paired t-test p-value 
 ## or you can obtain by "t.test(Low_Exp,High_Exp, paired = TRUE)" function
-t_test<-data_all[46,]
+t_test<-data_all[62,]
 ## Reserve the data frame for drawing
-plot_data<-data_all[2:45,] 
+plot_data<-data_all[2:61,] 
 
 
 ## Manually change the columns to plot separately
-i<-23
+i<-2
 data<-data.frame(cbind(plot_data[,1],plot_data[,i]))
 ## Remove rejected values for extremely high or low
 data<-data[data$X2!="",]
@@ -32,16 +32,14 @@ data$ID<-c(rep(seq(1,len/2),times = 2))
 
 ## Plot the paired scatterplots one by one
 ggplot(data, aes(x = Group, y = var)) +
-  # 箱线图
   geom_boxplot(aes(fill = Group), width = 0.3, alpha = 0.8, 
                outlier.shape = NA,color ="black",size = 1.2 ) +
-  # 散点图（带透明度0.6和随机水平抖动）
   geom_point(aes(color = Group, x = as.numeric(factor(Group)) + jitter), 
              size = 2.5, alpha = 0.6) +
-  # 配对连线（跟随散点位置）
+  ## Pair connection
   geom_line(aes(group = ID, x = as.numeric(factor(Group)) + jitter), 
             color = "gray", linetype = "solid") +
-  # 显著性标识
+  ## Significance marker
   geom_signif(
     comparisons = list(c("LE", "HE")),
     annotations = ifelse(as.numeric(t_test[i]) < 0.0001, "****",
@@ -61,7 +59,6 @@ ggplot(data, aes(x = Group, y = var)) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(alpha = 1))) + 
   theme(
-    # 坐标轴标签放大
     axis.title = element_text(size=14, color="black"),
     axis.text = element_text(size=12, color="black"),
     axis.text.x = element_blank(),
