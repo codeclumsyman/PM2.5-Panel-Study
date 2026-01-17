@@ -5,7 +5,7 @@
 library(ggplot2)
 
 ## Get the name of metabolites
-name<-read.csv("correlation_data.csv",header=FALSE)
+name<-read.csv("Correlation_data.csv",header=FALSE)
 name<-name[1,]
 
 data<-read.csv("Correlation_data.csv",header=TRUE)
@@ -31,11 +31,11 @@ for (i in 2:ncol(data)){
   p<-ggplot(plot_data, aes(x = Plasma, y = EBC)) +
     geom_smooth(
       method = "lm", 
-      se = TRUE,          # 显示置信区间
-      color = "#C60038",      # 回归线颜色
+      se = TRUE,          
+      color = "#C60038",      
       size = 2,
-      fill = "lightpink",    # 置信区间填充色
-      alpha = 0.1         # 置信区间透明度
+      fill = "lightpink",    
+      alpha = 0.1         
     ) +  
     geom_point(color = "black",size = 4) +
     labs(
@@ -61,5 +61,4 @@ for (i in 2:ncol(data)){
           axis.title.y = element_text(size = 20))
   print(p)
 }
-
 
