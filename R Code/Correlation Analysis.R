@@ -5,7 +5,7 @@
 library(ggplot2)
 
 ## Get the name of metabolites
-name<-read.csv("Correlation_data.csv",header=FALSE)
+name<-read.csv("correlation_data.csv",header=FALSE)
 name<-name[1,]
 
 data<-read.csv("Correlation_data.csv",header=TRUE)
@@ -61,4 +61,5 @@ for (i in 2:ncol(data)){
           axis.title.y = element_text(size = 20))
   print(p)
 }
+
 
