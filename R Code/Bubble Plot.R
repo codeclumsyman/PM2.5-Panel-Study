@@ -1,3 +1,5 @@
+### install.packages("ggplot2")
+##-----------------------------------------------
 library(ggplot2)
 
 df <- data.frame(
@@ -23,23 +25,23 @@ p <- ggplot(df, aes(x = strength, y = reorder(term_description, strength))) +
     size = 1.5, lineend = "round"
   ) +
   geom_point(aes(size = size, color = FDR), 
-             shape = 16,  # 实心圆
-             position = position_nudge(x = 0.02)) +  # 轻微右移，避免与条重叠
+             shape = 16,  # Set shape as solid circle
+             position = position_nudge(x = 0.02)) +  ## Move right slightly to avoid overlapping with the bar
   scale_color_gradientn(
     colours = c("#C8E9C5", "#A6DCB9", "#7BCCC4", "#4EB0CD", "#2A8CBE", "#0D67A7"),
     name = "FDR", 
-    trans = "log10"  # 对数转换，突出小 FDR 差异
+    trans = "log10"  ## Logarithmic transformation
   ) +
   
   scale_size_continuous(
     name = "Gene count", 
-    range = c(2, 6)  # 气泡最小、最大尺寸
+    range = c(2, 6) 
   ) +
   
   scale_x_continuous(
     limits = c(0, 2.5), 
-    breaks = seq(0, 2.5, 0.5),  # 刻度间隔 0.5
-    expand = c(0, 0)  # 去掉轴两侧空白
+    breaks = seq(0, 2.5, 0.5),  ## Sets the interval of x axis
+    expand = c(0, 0)  
   ) +
   
   theme_minimal() +
@@ -55,9 +57,10 @@ p <- ggplot(df, aes(x = strength, y = reorder(term_description, strength))) +
     panel.grid.minor = element_blank()
   ) +
   labs(
-    x = "Strength",  # 替换为参考图的横坐标名（如 "Strength"）
+    x = "Strength", 
     y = NULL,
     title = "Tissue"
   )
 print(p)
+
 
